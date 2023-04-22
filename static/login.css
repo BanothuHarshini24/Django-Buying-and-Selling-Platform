@@ -1,0 +1,106 @@
+.login-page{
+    margin:0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    color: #485563;
+    background-color: #fff;
+    justify-content: center;
+    /* background-image: ; */
+    background-size: cover;
+}
+
+.main{
+    width: 400px;
+    height: 600px;
+    padding: 10px 25px 30px 30px;
+    margin-left: -100px;
+    margin-top: 120px;
+    border-radius: 20px;
+    /* background-color: ; */
+    font-family: sans-serif;
+    font-weight: 700;
+}
+
+.title{
+    text-align: center;
+    font-size: 40px;
+    color: #555;
+    letter-spacing: .5px;
+    margin: px;
+    font-family: gotham;
+}
+
+.credentials{
+    width: 100%;
+    padding: 2px 5px 0px 5px;
+}
+.credentials input{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 18px;
+    color: #555;
+    padding: 20px 10px 20px 5px;
+    letter-spacing: 1px;
+}
+
+.username{
+    margin-bottom: 20px;
+    border-bottom: 2px solid #c2c4c3;
+    transition: .5s ease;
+}
+.username:hover{
+    border-bottom: 3px solid #485563;
+}
+.password{
+    margin-bottom: 30px;
+    border-bottom: 2px solid #c2c4c3;
+    transition: .5s ease;
+}
+.password:hover{
+    border-bottom: 3px solid #485563;
+}
+/* .submit{
+    outline: none;
+    border: none;
+    width: 100px;
+    height: 40px;
+    border-radius: 0px;
+    color: black;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    /* background-image: ; */
+    /* background-size: 200%;
+    box-shadow: 3px 3px 8px #9a9c9d,
+                -3px -3px 8px #fff;
+    transition: .5s;
+}
+.submit:hover{
+    background-position: right;
+} */ */
+
+.link{
+    margin: 10px;
+    text-align: center;
+}
+.link a{
+    color: black;
+    font-size: 15px;
+    text-decoration: none;
+}
+.link a:hover{
+    text-decoration: underline;
+}
+.input-div {
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .input-div:hover {
+    border: 1px solid black;
+    background-color: #DDDDDD;
+  }
