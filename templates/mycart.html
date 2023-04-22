@@ -1,0 +1,252 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="all.css">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="bootstrap.css">
+  <!-- Custom -->
+  <link rel="stylesheet" href="{%static 'style.css'%}">
+  <link rel="stylesheet" href="{%static 'lightbox.min.css'%}">
+  <link rel="stylesheet" href="{%static 'bootstrap.css'%}">
+  <link rel="stylesheet" href="{%static 'all.css'%}">
+  <link rel="stylesheet" href="">
+  <title>Document</title>
+  <style>
+    .cart-header {
+    font-weight: bold;
+    font-size: 1.25em;
+    color: #333;
+}
+
+.cart-column {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    margin-right: 1.5em;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+
+.cart-row {
+    display: flex;
+}
+
+.cart-item {
+    width: 45%;
+}
+
+.cart-price {
+    width: 20%;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.cart-quantity {
+    width: 35%;
+}
+
+.cart-item-title {
+    color: #333;
+    margin-left: .5em;
+    font-size: 1.2em;
+}
+
+.cart-item-image {
+    width: 75px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.btn-danger {
+    color: white;
+    background-color: #EB5757;
+    border: none;
+    border-radius: .3em;
+    font-weight: bold;
+}
+
+.btn-danger:hover {
+    background-color: #CC4C4C;
+}
+
+.cart-quantity-input {
+    height: 34px;
+    width: 50px;
+    border-radius: 5px;
+    border: 1px solid #56CCF2;
+    background-color: #eee;
+    color: #333;
+    padding: 0;
+    text-align: center;
+    font-size: 1.2em;
+    margin-right: 25px;
+}
+
+.cart-row:last-child {
+    border-bottom: 1px solid black;
+}
+
+.cart-row:last-child .cart-column {
+    border: none;
+}
+
+.cart-total {
+    text-align: end;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.cart-total-title {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: black;
+    margin-right: 20px;
+}
+
+.cart-total-price {
+    color: #333;
+    font-size: 1.1em;
+}
+
+.btn-purchase {
+    display: block;
+    margin: 40px auto 80px auto;
+    font-size: 1.75em;
+}
+  </style>
+</head>
+<body style="background-color: #f3efe9;">
+  <nav style="height: 91px; font-size: 16px; border-top: 3px solid #2c4152; border-bottom: 1px solid #e0e0e0; font-family: SourceSansPro; box-shadow: 0 3px 6px 0 rgba(0,0,0,.2);" class="navbar navbar-expand-lg navbar-black bg-white sticky-top">
+    <div style="margin-left: 0px; margin-right: 0px;" class="container">
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+        <img style="margin-left: 0px;" height="80px;" width="50px;" src="{% static 'assets\logo.png'%} " alt="logo">
+        <ul class="navbar-nav">
+          <li style="padding-left: 0px; padding-right:0px; margin-left: 20px ; margin-right:1px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li style="padding-right:0px; " class="nav-item active mr-3">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li style="width: 50px ;" class="nav-item active mr-3">
+            <a class="nav-link" href="/listing">SELL</a>
+          </li>
+          <form action="search">
+          
+            <div class="form-row">
+                <ul style="height: 40px;" class="navbar-nav">
+                    <li style="width: 40px;">
+                        <div style="margin-right: 150px;;" class="col-md-4 mb-3">
+                            <label class="sr-only">Search</label>
+                            <input style="width:626px; height: 44px; border: 1px solid black;" type="text" name="keywords" class="form-control" placeholder="Search ">
+                          </div>
+                    </li>
+                </ul>
+                
+              </div>
+        </form>
+
+        {% if user.is_authenticated %}
+          <li style="width: 60px; margin-left: 635px" class="nav-item active mr-3">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          {% else %}
+          <li style="width: 60px; margin-left: 700px" class="nav-item active mr-3">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li style="width: 170px; " class="nav-item active mr-3">
+            <a class="nav-link" href="/signup">Register</a>
+          </li>
+          {% endif %}
+
+          {% if user.is_authenticated %}
+          <li style="width: 80px; margin-left: 10px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/wish">Wishlist</a>
+          </li>
+          <li style="width: 60px; margin-left: 10px; margin-right: 10px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/mycart">Cart</a>
+          </li>
+         <li style="width: 60px; " class="nav-item active mr-3">
+            <a class="nav-link" href="/mysales">MySales</a>
+          </li>
+          {% endif %}
+      </ul>
+                
+      </div>
+    </div>
+  </nav>
+  <section style="margin-top: 30px;" class="container content-section">
+    <h2 class="section-header" style="margin-left: 450px; font-family: Roboto; margin-bottom: 20px;">MY CART</h2>
+    <div style="font-family: Roboto;" class="cart-row">
+        <span class="cart-item cart-header cart-column">ITEM</span>
+        <span class="cart-price cart-header cart-column">PRICE</span>
+        <span class="cart-remove cart-header cart-column">Remove</span>
+        <!-- <span class="cart-quantity cart-header cart-column">QUANTITY</span> -->
+        <span style="width: 200px;" class="cart-contact cart-header cart-column"> Contact Seller</span>
+    </div>
+  {%for c in add_to_cart%} 
+  <!-- <a href="/display?post_id={{ c.id_post }}"> -->
+  <div class="cart-items">
+    <div class="cart-row">
+      
+      <a href="/display?post_id={{ c.id_post }}">
+        <div style="margin-right: 250px;" class="cart-item cart-column">
+            <img style="width: 200px; height: 200px;" class="cart-item-image" src="{{c.image1.url}}" >
+            <!-- <span class="cart-item-title">T-Shirt</span> -->
+            <span style="margin-left: 100px; display: inline-block; width: 60px; " class="cart-item-description">{{c.title}} -- {{c.description}}</span>
+        </div>
+      </a>
+        <span class="cart-price cart-column" style="margin-right: 120px; display: inline-block; width: 66px; margin-top: 100px;">₹{{c.price}}</span>
+        <div class="cart-quantity cart-column" style="margin-right: 120px;">
+            <!-- <input class="cart-quantity-input" type="number" value="1"> -->
+            <a href="/remove_cart?post_id={{c.id_post}}">Remove</a>
+            
+        </div>
+            <!-- <a style="height: 50px; margin-top: 100px; width: 150px; margin-right: 175px;" href="">Chat with Seller</a> -->
+            <a style="height: 50px; margin-top: 100px; width: 150px; margin-right: 175px;" href="https://wa.me/{{contact_no}}?text=user {{request.user.username}} is interested in buying ur product" target="blank">
+              <img style="height: 40px; width: 40px;" src="{% static 'assets\whatsapp_logo.png'%} " alt="whatsapp_logo" height="40px" width="60px"> 
+            </a>
+    </div>
+</div>
+<!-- </a> -->
+{%endfor%}
+    <div style="font-family: Roboto;" class="cart-total">
+        <strong class="cart-total-title">Total</strong>
+        <span class="cart-total-price">₹{{price}}</span>
+    </div>
+    <div style="border-color: black; border-style: solid; border-width: 1px; margin-top: 30px; padding-left: 120px; padding-top: 20px; padding-bottom: 20px; background-color: #19376D; color: white; margin-left: 400px; margin-right: 400px;">
+      <a style="color: white;" href="/cart_purchase">Purchase</a>
+    </div>
+    <br><br><br><br>
+    
+</section>
+  <!-- {%for c in add_to_cart%} 
+  <div class="cart-items">
+    <div class="cart-row">
+        <div class="cart-item cart-column">
+            <img class="cart-item-image" src="{{c.image1.url}}" width="100" height="100">
+            <span class="cart-item-title">T-Shirt</span>
+            <span class="cart-item-description">{{c.description}}</span>
+        </div>
+        <span class="cart-price cart-column">$19.99</span>
+        <div class="cart-quantity cart-column">
+            <input class="cart-quantity-input" type="number" value="1">
+            <a href="/remove_cart?post_id={{c.id_post}}">Remove</a>
+        </div>
+    </div>
+</div>
+{%endfor%} -->
+<!-- {%for c in add_to_cart%}  
+  <img src="{{c.image1.url}}">
+  <p>{{c.description}}</p>
+  <a href="/remove_cart?post_id={{c.id_post}}">Remove</a>
+{%endfor%} -->

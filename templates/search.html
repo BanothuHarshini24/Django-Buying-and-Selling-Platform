@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="all.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="bootstrap.css">
+    <!-- Custom -->
+    <link rel="stylesheet" href="{%static 'style.css'%}">
+    <link rel="stylesheet" href="{%static 'lightbox.min.css'%}">
+    <link rel="stylesheet" href="{%static 'bootstrap.css'%}">
+    <link rel="stylesheet" href="{%static 'all.css'%}">
+    <link rel="stylesheet" href="">
+    <title>Document</title>
+</head>
+<body style="background-color: rgb(246, 241, 241);">
+  <nav style="height: 91px; font-size: 16px; border-top: 3px solid #2c4152; border-bottom: 1px solid #e0e0e0; font-family: SourceSansPro; box-shadow: 0 3px 6px 0 rgba(0,0,0,.2);" class="navbar navbar-expand-lg navbar-black bg-white sticky-top">
+    <div style="margin-left: 0px; margin-right: 0px;" class="container">
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+        <img style="margin-left: 0px;" height="80px;" width="50px;" src="{% static 'assets\logo.png'%} " alt="logo">
+        <ul class="navbar-nav">
+          <li style="padding-left: 0px; padding-right:0px; margin-left: 20px ; margin-right:1px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li style="padding-right:0px; " class="nav-item active mr-3">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li style="width: 50px ;" class="nav-item active mr-3">
+            <a class="nav-link" href="/listing">SELL</a>
+          </li>
+          <form action="search">
+          
+            <div class="form-row">
+                <ul style="height: 40px;" class="navbar-nav">
+                    <li style="width: 40px;">
+                        <div style="margin-right: 150px;;" class="col-md-4 mb-3">
+                            <label class="sr-only">Search</label>
+                            <input style="width:626px; height: 44px; border: 1px solid black;" type="text" name="keywords" class="form-control" placeholder="Search ">
+                          </div>
+                    </li>
+                </ul>
+                
+              </div>
+        </form>
+
+        {% if user.is_authenticated %}
+          <li style="width: 60px; margin-left: 635px" class="nav-item active mr-3">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          {% else %}
+          <li style="width: 60px; margin-left: 700px" class="nav-item active mr-3">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li style="width: 170px; " class="nav-item active mr-3">
+            <a class="nav-link" href="/signup">Register</a>
+          </li>
+          {% endif %}
+
+          {% if user.is_authenticated %}
+          <li style="width: 80px; margin-left: 10px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/wish">Wishlist</a>
+          </li>
+          <li style="width: 60px; margin-left: 10px; margin-right: 10px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/mycart">Cart</a>
+          </li>
+         <li style="width: 60px; " class="nav-item active mr-3">
+            <a class="nav-link" href="/mysales">MySales</a>
+          </li>
+          {% endif %}
+      </ul>
+                
+      </div>
+    </div>
+  </nav>
+      {% if text %}
+      <div style="border-color: black; border-style: solid; border-width: 1px; margin-top: 50px; margin-right: 100px; margin-left: 100px; padding: 20px; background-color: #fbfbfb; font-size: 14px; font-family: SourceSansPro; color: #333; text-align: center;" >
+        <p style="font-family: Lora; font-size: 26px;">Sorry! We couldn't find any matching items for</p>
+        <p style="font-family: Lora; font-size: 26px; font-weight: 700px;"> <strong> {{keywords}}</strong></p>
+        <hr>
+        <small style="color: #afacac; font-size: 12px;">Don't give up - check the spelling, or try less specific search terms</small>
+      </div>
+      {%else%}
+      <div style="font-family: sans-serif; margin-top: 50px; text-align: center;">
+        <h3>Showing results for "{{keywords}}"</h3>
+      </div>
+      {% endif %}
+      <section id="listings" class="py-5">
+        <div class="container">
+          <!-- <h3 style="font-family: Playfair Display; font-weight: bold; margin-bottom: 50px;" class="text-center mb-3">Latest Listings</h3> -->
+          <div class="row">
+            {%for post in allposts %}  
+            <div style="border: none; margin-right: 0px; " class="col-md-4 mb-4">
+              <a href="/display?post_id={{ post.id_post }}">
+                <div style="border: none; height: 450px;" class="card listing-preview">
+                  <img style="object-fit: cover; height: 250px; " class="card-img-top" src="{{ post.image1.url }}" alt="">
+                  <div class="card-img-overlay">
+                    <!-- <h2>
+                      <span class="badge badge-secondary text-white">{{ feed.price }}</span>
+                    </h2> -->
+                  </div>
+              </a>
+                  <div class="card-body">
+                    <div class="listing-heading text-center">
+                      <h2 style="font-family: SourceSansPro; color: #b19975;" >{{ post.title }}</h2>
+                      
+                        <h5 style="font-family: SourceSansPro; color: #333;">
+                          <!-- <i class="fas fa-map-marker text-secondary"></i> -->
+                          {{ post.category }}</h5>
+                          <h4>
+                        <span>₹{{ post.price }}</span>
+                      </h4>
+                    </div>
+                    <!-- <a href="/like1?post_id={{feed.id_post}}" onclick="toggleWishlist(this)">
+                      <div>
+                        <p id="ptag">Add to wishlist</p>
+                      </div>
+                    </a>
+                    <a href="/carts1?post_id={{feed.id_post}}">
+                      <p>Add to Cart</p>
+                    </a> -->
+                    <div id="wishlist" style="position: absolute; margin-right: 30px; border-color: rgb(213, 162, 73); border-style: solid; border-width: 1px; padding: 5px 0px 3px; padding-left: 10px;" class="add-to-wishlist">
+                      <a id="wishlist-link" style=" display: inline; margin-right: 30px;" class="btn btn-pink btn-block" href="/like?post_id={{feed.id_post}}">Add to Wishlist</a>
+                    </div>
+                      
+                    <div style="position: absolute; margin-left: 180px; background-color: #d5a249; width: 120px ; height: 35px; padding-top: 5px; padding-right: 10px; padding-bottom: 0px; padding-left: 10px;">
+                      <a style="display: inline; color: white; font-size: 16px;"  href="/carts?post_id={{feed.id_post}}">Add to Cart
+                      </a>
+                    </div>
+                      
+                    <!-- <a href="listing.html" class="btn btn-primary btn-block">More Info</a> -->
+                  </div>
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>  
+        
+      </section>
+      
+
+      <!-- <footer style="position: fixed; bottom: 0; width: 100%;">
+        <div style="background-color: #a6c7de; margin-bottom: 0px; ">
+          <br>
+          <p style="text-align: center; font-family: Nowlight;">
+            '© Copyright 2023, All rights reserved. | '
+            <strong><a href="/loginpage">Admin Login</a></strong>
+          </p>
+          <p style="text-align: center; font-family: Nowlight;">
+            Indian Institue of Technology, Indore
+          </p>
+          <br>
+        </div>
+      </footer> -->
+    
+    
+</body>
+</html>
+   
+   <!-- <img src="{{post.image1.url}}">
+   <p>{{post.description}}</p>
+   <p>{{post.title}}</p> -->

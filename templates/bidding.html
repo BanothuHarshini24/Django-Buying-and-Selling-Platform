@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="all.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="bootstrap.css">
+    <!-- Custom -->
+    <link rel="stylesheet" href="{%static 'style.css'%}">
+    <link rel="stylesheet" href="{%static 'lightbox.min.css'%}">
+    <link rel="stylesheet" href="{%static 'bootstrap.css'%}">
+    <link rel="stylesheet" href="{%static 'all.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+      @keyframes scroll {
+        0% { transform: translateX(0%); }
+        50% { transform: translateX(200%); }
+        100% { transform: translateX(-200%); }
+      }
+    
+      .scrolling-text {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        animation: scroll 10s linear infinite;
+      }
+    </style>
+    <!-- <style>
+      @keyframes scroll {
+        0% { transform: translateX(-100%); }
+        50% { transform: translateX(0); }
+        100% { transform: translateX(100%); }
+      }
+    
+      .scrolling-text {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        animation: scroll 10s linear infinite;
+      }
+    </style> -->
+  
+    
+    <title>Document</title>
+</head>
+<body >
+    <nav style="height: 91px; font-size: 16px; border-top: 3px solid #2c4152; border-bottom: 1px solid #e0e0e0; font-family: SourceSansPro; box-shadow: 0 3px 6px 0 rgba(0,0,0,.2); width: 100%;" class="navbar navbar-expand-lg navbar-black bg-white sticky-top">
+        <div style="margin-left: 0px; margin-right: 0px;" class="container">
+          
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    
+            <img style="margin-left: 0px;" height="80px;" width="50px;" src="{% static 'assets\logo.png'%} " alt="logo">
+            <ul class="navbar-nav">
+              <li style="padding-left: 0px; padding-right:0px; margin-left: 20px ; margin-right:1px;" class="nav-item active mr-3">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <li style="padding-right:0px; " class="nav-item active mr-3">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li style="width: 50px ;" class="nav-item active mr-3">
+                <a class="nav-link" href="/listing">SELL</a>
+              </li>
+              <form action="search">
+              
+                <div class="form-row">
+                    <ul style="height: 40px;" class="navbar-nav">
+                        <li style="width: 40px;">
+                            <div style="margin-right: 150px;;" class="col-md-4 mb-3">
+                                <label class="sr-only">Search</label>
+                                <input style="width:626px; height: 44px; border: 1px solid black;" type="text" name="keywords" class="form-control" placeholder="Search ">
+                              </div>
+                        </li>
+                    </ul>
+                    
+                  </div>
+            </form>
+    
+            {% if user.is_authenticated %}
+              <li style="width: 60px; margin-left: 635px" class="nav-item active mr-3">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+              {% else %}
+              <li style="width: 60px; margin-left: 700px" class="nav-item active mr-3">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+              <li style="width: 170px; " class="nav-item active mr-3">
+                <a class="nav-link" href="/signup">Register</a>
+              </li>
+              {% endif %}
+    
+              {% if user.is_authenticated %}
+              <li style="width: 80px; margin-left: 10px;" class="nav-item active mr-3">
+                <a class="nav-link" href="/wish">Wishlist</a>
+              </li>
+              <li style="width: 60px; margin-left: 10px; margin-right: 10px;" class="nav-item active mr-3">
+                <a class="nav-link" href="/mycart">Cart</a>
+              </li>
+             <li style="width: 60px; " class="nav-item active mr-3">
+                <a class="nav-link" href="/mysales">MySales</a>
+              </li>
+              {% endif %}
+          </ul>
+                    
+          </div>
+        </div>
+    </nav>
+    {%if messages%}
+    {%for message in messages%} 
+     <h6 style="color:red;">{{message}}</h3>
+    {% endfor %}
+    {%else%}
+    <h3  style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-top: 20px; text-align: center;">MY SALES</h3>
+    <div style="background-color: #ECF9FF; text-align: center; font-family: Georgia, serif;">
+      <span class="scrolling-text"><strong>Hurry Up! Bidding ends tonight...</strong> </span>
+    </div>
+    {% for bid in bid %}
+  <div style=" font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: relative; width: 100%; margin-top: 40px; border-width: 0px;" class="card mb-3" style="max-width: 540px;">
+    <div style="margin-left: 175px; margin-right: 100px; height: 320px; padding-top: 25px;" class="row g-0">
+      <div class="col-md-4">
+        <a href="/display?post_id={{ bid.id_post }}">
+        <img style="width: 400px; height: 250px;" src="{{bid.image1.url}}" class="img-fluid rounded-start" alt="...">
+        </a>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+            <div>{{bid.description}} </div>
+            <div style="position: relative;"> 
+                <div style="position: absolute; width: 100px; border-right-style: solid; border-right-width: 1px;">{{bid.title}} </div>
+                <div style="position: absolute; margin-left: 125px ; width: 100px;">{{bid.category}} </div>
+            </div>
+            <hr style="margin-top: 40px; margin-bottom: 0px; width: 500px; margin-left: 0px;">
+            <br>
+            <div>
+                <div style="position: absolute; width: 100px;">Current Price</div>
+                <div style="position: absolute; margin-left: 200px ; width: 100px;">₹{{bid.price}} </div>
+            </div>
+            <br><br>
+            <div>
+                <div style="position: absolute; width: 100px;">Bidding Price</div>
+                <div style="position: absolute; margin-left: 200px ; width: 100px;">₹{{bid.bid_price}} </div>
+            </div>
+            <br><br>
+            <div style="position: absolute; border-top-style: solid; border-top-width: 0px; padding-top: 5px; height: 36px;">
+                (IND)₹
+            </div>
+            <form action="do_bidding/{{bid.id_post}}" method="POST">
+                {%csrf_token%}
+                <div style="position: absolute; margin-left: 60px; width: 329px; border-style: solid; border-width: 1px ;" class="price">
+                  <input style="width: 326px; border-width: 0px; padding-left: 10px; padding-top: 6px; padding-bottom: 6px;" type="text" name="bidding_price" placeholder="Your Bid Price" required="">
+              </div>
+              <div style="position: absolute; margin-left: 400px; " class="button">
+                <input style="padding-top: 8px; padding-bottom: 8px; background-color: transparent; background: linear-gradient(to bottom right, #0291dc, #0291dc 40%, #0275ce); border: #0291dc 1px solid; color: white; border-radius: 3px; font-size: 13px;" type="submit" value="PLACE BID">
+            </div>
+              </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%endfor%}
+  {%endif%}
+</body>
+</html>
+<!-- {% for bid in bid %}
+    <img src="{{bid.image1.url}}">
+    <h2>{{bid.title}}</h2>
+    <h4>price:-{{bid.price}}</h4>
+    <h5>bidding_price:-{{bid.bid_price}}</h5>
+    <form action="do_bidding/{{bid.id_post}}" method="POST">
+    {%csrf_token%}
+    <div class="price">
+      <input type="text" name="bidding_price" placeholder="your bid_Price" required="">
+  </div>
+  <div class="button">
+    <input type="submit" value="lock the price">
+</div>
+  </form>
+{% endfor %}
+{%for message in messages %} 
+   <p>{{message}}</p>
+{% endfor %} -->

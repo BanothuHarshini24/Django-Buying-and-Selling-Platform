@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 style="text-align: center; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">YOUR PAYMENT HAS BEEN DONE SUCCESSFULLY!!</h1>
+<h3>You can download your invoice here</h3>
+
+<!-- {%for post in post%}  
+ <img style="height: 200px; width: 200px;" src="{{post.image1.url}}">
+ <p>{{post.description}}</p>
+ <p>{{post.title}}</p>
+{% endfor %} -->
+
+<!-- <strong>your total bill is:-{{price}}</strong>  -->
+
+<link rel="stylesheet" href="{%static 'cart_purchase.css'%}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.223/styles/kendo.common.min.css" />
+<script src="https://kendo.cdn.telerik.com/2017.1.223/js/jszip.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2017.1.223/js/kendo.all.min.js"></script>
+ 
+    <div id="example">
+    <div class="box wide hidden-on-narrow">
+    </div>
+
+    <div style="background-color: rgb(255, 255, 255);"class="page-container hidden-on-narrow">
+        <div class="pdf-page size-a7">
+            <page size="A7">
+               
+               <!-- PDF CONTENT START -->
+                
+               <div style="color: rgb(5, 19, 82); " class="container mt-6 mb-7">
+                <div class="row justify-content-center">
+                  <div class="col-lg-12 col-xl-7">
+                    <div class="card">
+                      <div class="card-body p-5">
+                        <h2>
+                          Hey {{user.username}},
+                        </h2>
+                        <p class="fs-sm">
+                          This is the receipt for a payment of <strong>Rs.{{Post.bid_price}}</strong> 
+                        </p>
+            
+            
+                        <div class="border-top border-gray-200 mt-4 py-4">
+                            <div class="col-md-6 text-md-end">
+                              <!-- <div class="text-muted mb-2">Payment To</div>
+                              <strong>
+                                {{post.user}}
+                              </strong>
+                              <p class="fs-sm">
+                                {{post.location}}
+                                <br>
+                                
+                              </p>
+                            </div> -->
+                          </div>
+                        </div>
+                        
+                        <table class="table border-bottom border-gray-200 mt-3">
+                          <thead>
+                            <tr>
+                              <th style="height:83px; padding-left:200px; padding-right:200px;" scope="col" class="fs-sm text-dark text-uppercase-bold-sm px-0">Title</th>
+                              <th style="height:83px; margin-left:400px; padding-right:200px;" scope="col" class="fs-sm text-dark text-uppercase-bold-sm px-0">Description</th>
+                              <th style="height:83px; padding-left:200px; padding-right:200px;" scope="col" class="fs-sm text-dark text-uppercase-bold-sm text-end px-0">Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            
+                            <tr>
+                              <td class="px-0">{{Post.title}}</td>
+                              <td class="px-0">{{Post.description}}</td>
+                              <td class="text-end px-0">Rs.{{Post.bid_price}}</td>
+                            </tr>
+                        
+                            <!-- <tr>
+                              <td class="px-0">Website design</td>
+                              <td class="text-end px-0">$80.00</td>
+                            </tr> -->
+                          </tbody>
+                        </table>
+                        
+                        <div class="mt-5">
+                            
+                          <div style="text-align: center;" class="d-flex justify-content-end">
+                            <p class="text-muted me-3">Total Amount:        Rs.{{Post.bid_price}}</p>
+                            <!-- <span>Rs.{{price}}</span> -->
+                          </div>
+                        </div>
+                  </div>
+                </div>
+                
+              </div>
+              
+               <!-- PDF CONTENT END -->
+
+            </page>
+        </div>
+    </div>
+    <button style="color: rgb(1, 6, 17);background-color:honeydew; width:102px; height:36px; margin-left: 0px;" id="pdf-generate">Download</button>
+    <div class="responsive-message"></div>
+
+    <style>
+        /*
+            Use the DejaVu Sans font for display and embedding in the PDF file.
+            The standard PDF fonts have no support for Unicode characters.
+        */
+        .pdf-page {
+            font-family: "DejaVu Sans", "Arial", sans-serif;
+        }
+    </style>
+
+    <script>
+        // Import DejaVu Sans font for embedding
+
+        // NOTE: Only required if the Kendo UI stylesheets are loaded
+        // from a different origin, e.g. cdn.kendostatic.com
+        kendo.pdf.defineFont({
+            "DejaVu Sans"             : "https://kendo.cdn.telerik.com/2016.2.607/styles/fonts/DejaVu/DejaVuSans.ttf",
+            "DejaVu Sans|Bold"        : "https://kendo.cdn.telerik.com/2016.2.607/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
+            "DejaVu Sans|Bold|Italic" : "https://kendo.cdn.telerik.com/2016.2.607/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
+            "DejaVu Sans|Italic"      : "https://kendo.cdn.telerik.com/2016.2.607/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf"
+        });
+    </script>
+
+    <!-- Load Pako ZLIB library to enable PDF compression -->
+    <!-- <script src="../content/shared/js/pako.min.js"></script> -->
+
+    <script>
+      function getPDF(selector) {
+        kendo.drawing.drawDOM($(selector)).then(function(group){
+          kendo.drawing.pdf.saveAs(group, 'testing.pdf');
+        });
+      }
+    </script>
+    <style>
+    * {
+        box-sizing: border-box;
+    }
+    body {
+          font-family: 'Montserrat', sans-serif;
+    }
+    page[size="A4"] {  
+      width: 790px;
+      height: 1000px; 
+    }
+    page {
+      background: white; 
+      display: block;
+      margin: 0 auto;
+    }
+
+</style>
+
+</div>
+
+<script type="text/javascript">
+       $('#pdf-generate').click(function(){
+         getPDF('.pdf-page');
+       })
+</script>
+</body>
+</html>

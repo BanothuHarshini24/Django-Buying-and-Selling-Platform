@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="all.css">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="bootstrap.css">
+  <!-- Custom -->
+  <link rel="stylesheet" href="{%static 'style.css'%}">
+  <link rel="stylesheet" href="{%static 'lightbox.min.css'%}">
+  <link rel="stylesheet" href="{%static 'bootstrap.css'%}">
+  <link rel="stylesheet" href="{%static 'all.css'%}">
+  <link rel="stylesheet" href="{%static 'display.css'%}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <style>
+    #linkss:hover{
+      background-color: #B31E6F;
+      color: white;
+    }
+    #linkulu:hover{
+      color: white;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body style="background-color: #F7F5EB;">
+  <nav style="height: 91px; font-size: 16px; border-top: 3px solid #2c4152; border-bottom: 1px solid #e0e0e0; font-family: SourceSansPro; box-shadow: 0 3px 6px 0 rgba(0,0,0,.2);" class="navbar navbar-expand-lg navbar-black bg-white sticky-top">
+    <div style="margin-left: 0px; margin-right: 0px;" class="container">
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+        <img style="margin-left: 0px;" height="80px;" width="50px;" src="{% static 'assets\logo.png'%} " alt="logo">
+        <ul class="navbar-nav">
+          <li style="padding-left: 0px; padding-right:0px; margin-left: 20px ; margin-right:1px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li style="padding-right:0px; " class="nav-item active mr-3">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li style="width: 50px ;" class="nav-item active mr-3">
+            <a class="nav-link" href="/listing">SELL</a>
+          </li>
+          <form action="search">
+          
+            <div class="form-row">
+                <ul style="height: 40px;" class="navbar-nav">
+                    <li style="width: 40px;">
+                        <div style="margin-right: 150px;;" class="col-md-4 mb-3">
+                            <label class="sr-only">Search</label>
+                            <input style="width:626px; height: 44px; border: 1px solid black;" type="text" name="keywords" class="form-control" placeholder="Search ">
+                          </div>
+                    </li>
+                </ul>
+                
+              </div>
+        </form>
+
+        {% if user.is_authenticated %}
+          <li style="width: 60px; margin-left: 635px" class="nav-item active mr-3">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          {% else %}
+          <li style="width: 60px; margin-left: 700px" class="nav-item active mr-3">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li style="width: 170px; " class="nav-item active mr-3">
+            <a class="nav-link" href="/signup">Register</a>
+          </li>
+          {% endif %}
+
+          {% if user.is_authenticated %}
+          <li style="width: 80px; margin-left: 10px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/wish">Wishlist</a>
+          </li>
+          <li style="width: 60px; margin-left: 10px; margin-right: 10px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/mycart">Cart</a>
+          </li>
+         <li style="width: 60px; " class="nav-item active mr-3">
+            <a class="nav-link" href="/mysales">MySales</a>
+          </li>
+          {% endif %}
+      </ul>
+                
+      </div>
+    </div>
+  </nav>
+
+  <div style="width: 600px; text-align: center; margin-left: 425px; font-family: serif; color: red; margin-top: 40px; height: 52px; padding-top: 10px;">
+    {%for message in messages%}  
+        <span style="font-size: 20px;">{{message}}</span>
+      {% endfor %}
+  </div>
+
+  <div style="position: absolute; width: 500px; margin-left: 200px; margin-top: 100px;" id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img style="height: 400px; width: 700px;" src="{{display_post.image1.url}}" class="d-block w-100" alt="...">
+      </div>
+      <!-- <div class="carousel-item">
+        <img style="height: 500px; width: 700px;" src="{{display_post.image1.url}}" class="d-block w-100" alt="...">
+      </div> -->
+      <div class="carousel-item">
+        <img style="height: 400px; width: 700px;" src="{{display_post.image2.url}}" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <div style="width: 400px; margin-left: 800px; margin-top: 100px; text-align: center; font-family: SourceSansPro;">
+    <div>
+      <h2 style="color: #B31E6F;">{{display_post.title}}</h2>
+    </div>
+    <div>
+      <h3>{{display_post.category}}</h3>
+    </div>
+    <hr>
+    <div style="margin-bottom: 20px;">
+      <h3 style="margin-bottom: 0px;">₹{{display_post.price}}</h3>
+      <small style="color: #B31E6F;">Inclusive of all taxes</small>
+    </div>
+    <div style="margin-bottom: 20px;">
+      <h4>{{display_post.description}}</h4>
+    </div>
+    <!-- <div style="margin-bottom: 20px;">
+      <i class="fa-regular fa-location-dot" style="color: #9c006f; position: absolute;"></i>
+      <h4 >{{display_post.location}}</h4>
+    </div> -->
+    <div id="linkss" id="wishlist" style=" border-color: #B31E6F; margin-bottom: 20px; border-style: solid; border-width: 1px; padding: 5px 0px 3px; padding-left: 10px;" class="add-to-wishlist">
+      <a id="linkulu" style=" display: inline; margin-right: 30px;" class="btn btn-pink btn-block" href="/like1?post_id={{display_post.id_post}}">Add to Wishlist</a>
+      <!-- <button><span><i class="fa-sharp fa-regular fa-heart"></i></span></button> -->
+    </div>
+      
+    <div id="linkss" style="border-color: #B31E6F; border-style: solid; border-width: 1px; width: 400px; margin-bottom: 20px; height: 35px; padding-top: 5px; padding-right: 10px; padding-bottom: 0px; padding-left: 10px;">
+      <a id="linkulu" style="display: inline; font-size: 16px; " class="btn btn-pink btn-block"  href="/carts1?post_id={{display_post.id_post}}">Add to Cart
+      </a>
+    </div>
+
+    <div id="linkss" style=" border-color: #B31E6F; border-style: solid; border-width: 1px; width: 400px; height: 35px; padding-top: 5px; padding-right: 10px; padding-bottom: 0px; padding-left: 10px;">
+      <a id="linkulu" style="display: inline; font-size: 16px; " class="btn btn-pink btn-block" href="/cart_purchase">Purchase
+      </a>
+    </div>
+
+    <!-- <div style="background-color: #B31E6F; width: 400px; height: 35px; padding-top: 5px; padding-right: 10px; padding-bottom: 0px; padding-left: 10px;">
+      <a style="display: inline; color: white; font-size: 16px;"  href="/cart_purchase">Add to Cart
+      </a>
+    </div> -->
+  </div>
+
+  <div  style="width: 117px; margin-bottom: 20px; height: 35px; padding-top: 3px; padding-right: 10px; padding-bottom: 7px; padding-left: 5px; margin-top: 27px; margin-left: 600px;">
+    <a style="display: inline; font-size: 16px; " class="btn btn-pink btn-block"  href="/report?post_id={{display_post.id_post}}"><i class="fa-regular fa-triangle-exclamation"></i>&nbsp; REPORT
+    </a>
+  </div>
+
+  
+    <!-- <div style="background-color: #c2daeb; position: fixed; bottom: 0; width: 100%;">
+      <br>
+      <p style="text-align: center; font-family: Nowlight;">
+        '© Copyright 2023, All rights reserved. | '
+        <strong><a href="/loginpage">Admin Login</a></strong>
+      </p>
+      <p style="text-align: center; font-family: Nowlight;">
+        Indian Institue of Technology, Indore
+      </p>
+      
+    </div> -->
+  
+  
+
+    <script src="assets/js/jquery-3.3.1.min.js "></script>
+    <script src="assets/js/bootstrap.bundle.min.js "></script>
+    <script src="assets/js/main.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+</body>
+</html>

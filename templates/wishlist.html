@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="all.css">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="bootstrap.css">
+  <!-- Custom -->
+  <link rel="stylesheet" href="{%static 'style.css'%}">
+  <link rel="stylesheet" href="{%static 'lightbox.min.css'%}">
+  <link rel="stylesheet" href="{%static 'bootstrap.css'%}">
+  <link rel="stylesheet" href="{%static 'all.css'%}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <link rel="stylesheet" href="">
+  <title>Document</title>
+</head>
+<body>
+  <nav style="height: 91px; font-size: 16px; border-top: 3px solid #2c4152; border-bottom: 1px solid #e0e0e0; font-family: SourceSansPro; box-shadow: 0 3px 6px 0 rgba(0,0,0,.2);" class="navbar navbar-expand-lg navbar-black bg-white sticky-top">
+    <div style="margin-left: 0px; margin-right: 0px;" class="container">
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+        <img style="margin-left: 0px;" height="80px;" width="50px;" src="{% static 'assets\logo.png'%} " alt="logo">
+        <ul class="navbar-nav">
+          <li style="padding-left: 0px; padding-right:0px; margin-left: 20px ; margin-right:1px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li style="padding-right:0px; " class="nav-item active mr-3">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li style="width: 50px ;" class="nav-item active mr-3">
+            <a class="nav-link" href="/listing">SELL</a>
+          </li>
+          <form action="search">
+          
+            <div class="form-row">
+                <ul style="height: 40px;" class="navbar-nav">
+                    <li style="width: 40px;">
+                        <div style="margin-right: 150px;;" class="col-md-4 mb-3">
+                            <label class="sr-only">Search</label>
+                            <input style="width:626px; height: 44px; border: 1px solid black;" type="text" name="keywords" class="form-control" placeholder="Search ">
+                          </div>
+                    </li>
+                </ul>
+                
+              </div>
+        </form>
+
+        {% if user.is_authenticated %}
+          <li style="width: 60px; margin-left: 635px" class="nav-item active mr-3">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          {% else %}
+          <li style="width: 60px; margin-left: 700px" class="nav-item active mr-3">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li style="width: 170px; " class="nav-item active mr-3">
+            <a class="nav-link" href="/signup">Register</a>
+          </li>
+          {% endif %}
+
+          {% if user.is_authenticated %}
+          <li style="width: 80px; margin-left: 10px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/wish">Wishlist</a>
+          </li>
+          <li style="width: 60px; margin-left: 10px; margin-right: 10px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/mycart">Cart</a>
+          </li>
+         <li style="width: 60px; " class="nav-item active mr-3">
+            <a class="nav-link" href="/mysales">MySales</a>
+          </li>
+          {% endif %}
+      </ul>            
+      </div>
+    </div>
+  </nav>
+  <section id="listings" class="py-5">
+    <div class="container">
+      <br>
+      <h3 style="font-family: Playfair Display; font-weight: bold; margin-bottom: 50px;" class="text-center mb-3">My Wishlist</h3>
+      <br>
+      <div class="row">
+        {%for wish in wish_list%}   
+        <div style="border: none; margin-right: 0px; " class="col-md-4 mb-4">
+           <a href="/display?post_id={{ wish.id_post }}"> 
+            <div style="border: none; height: 450px;" class="card listing-preview">
+              <img style="object-fit: cover; height: 250px; " class="card-img-top" src="{{ wish.image1.url }}" alt="">
+              <div class="card-img-overlay">
+                <!-- <h2>
+                  <span class="badge badge-secondary text-white">{{ feed.price }}</span>
+                </h2> -->
+              </div>
+          </a>
+              <div class="card-body">
+                <div class="listing-heading text-center">
+                  <h2 style="font-family: SourceSansPro; color: #b19975;" >{{ wish.title }}</h2>
+                  
+                    <h5 style="font-family: SourceSansPro; color: #333;">
+                      <!-- <i class="fas fa-map-marker text-secondary"></i> -->
+                      {{ wish.category }}</h5>
+                      <h4>
+                    <span>₹{{ wish.price }}</span>
+                  </h4>
+                </div>
+                <div id="wishlist" style="position: absolute; margin-right: 30px; border-color: rgb(213, 162, 73); border-style: solid; border-width: 1px; padding-left: 0px; padding-right: 3px; padding-top: 6px; padding-bottom: 6px;" class="add-to-wishlist">
+                  <a id="wishlist-link" style=" display: inline; padding-right: 0px; padding-left: 3px; " class="btn btn-pink btn-block" href="/like1?post_id={{wish.id_post}}">Remove from wishlist <i style="color: #d5a249;" class="fa-solid fa-heart"></i></i></a>
+                  <!-- <span><i class="fa-thin fa-heart" style="color: #d5a249;"></i></span> -->
+                </div>
+                  
+                <div style="position: absolute; margin-left: 190px; background-color: #d5a249; width: 140px ; height: 40px; padding-top: 7px; padding-right: 10px; padding-bottom: 0px; padding-left: 10px;">
+                  <a style="display: inline; color: white; font-size: 16px;"  href="/carts1?post_id={{wish.id_post}}">Add to Cart &nbsp; <i class="fa-regular fa-cart-shopping"></i></a>
+                </div>
+                  
+                <!-- <a href="listing.html" class="btn btn-primary btn-block">More Info</a> -->
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>  
+    
+  </section>
+  <!-- {%for wish in wish_list%}   
+  <img src="{{wish.image1.url}}">
+  <p>{{wish.description}}</p>
+   <p>{{wish.price}}</p>
+   <p>{{wish.created_at}}</p>
+   <p>{{wish.title}}</p>
+   <p>{{wish.category}}</p>
+{%endfor%} -->
+</body>
+</html>
+<!-- {%for wish in wish_list%}   
+  <img src="{{wish.image1.url}}">
+  <p>{{wish.description}}</p>
+   <p>{{wish.price}}</p>
+   <p>{{wish.created_at}}</p>
+   <p>{{wish.title}}</p>
+   <p>{{wish.category}}</p>
+{%endfor%} -->

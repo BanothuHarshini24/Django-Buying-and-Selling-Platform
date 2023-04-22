@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="all.css">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="bootstrap.css">
+  <!-- Custom -->
+  <link rel="stylesheet" href="{%static 'style.css'%}">
+  <link rel="stylesheet" href="{%static 'lightbox.min.css'%}">
+  <link rel="stylesheet" href="{%static 'bootstrap.css'%}">
+  <link rel="stylesheet" href="{%static 'all.css'%}">
+  <link rel="stylesheet" href="">
+
+  <title>Document</title>
+</head>
+<body style="background-color: #f8eee1;">
+  <nav style="height: 91px; font-size: 16px; border-top: 3px solid #2c4152; border-bottom: 1px solid #e0e0e0; font-family: SourceSansPro; box-shadow: 0 3px 6px 0 rgba(0,0,0,.2);" class="navbar navbar-expand-lg navbar-black bg-white sticky-top">
+    <div style="margin-left: 0px; margin-right: 0px;" class="container">
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+        <img style="margin-left: 0px;" height="80px;" width="50px;" src="{% static 'assets\logo.png'%} " alt="logo">
+        <ul class="navbar-nav">
+          <li style="padding-left: 0px; padding-right:0px; margin-left: 20px ; margin-right:1px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li style="padding-right:0px; " class="nav-item active mr-3">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li style="width: 50px ;" class="nav-item active mr-3">
+            <a class="nav-link" href="/listing">SELL</a>
+          </li>
+          <form action="search">
+          
+            <div class="form-row">
+                <ul style="height: 40px;" class="navbar-nav">
+                    <li style="width: 40px;">
+                        <div style="margin-right: 150px;;" class="col-md-4 mb-3">
+                            <label class="sr-only">Search</label>
+                            <input style="width:626px; height: 44px; border: 1px solid black;" type="text" name="keywords" class="form-control" placeholder="Search ">
+                          </div>
+                    </li>
+                </ul>
+                
+              </div>
+        </form>
+
+        {% if user.is_authenticated %}
+          <li style="width: 60px; margin-left: 635px" class="nav-item active mr-3">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          {% else %}
+          <li style="width: 60px; margin-left: 700px" class="nav-item active mr-3">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li style="width: 170px; " class="nav-item active mr-3">
+            <a class="nav-link" href="/signup">Register</a>
+          </li>
+          {% endif %}
+
+          {% if user.is_authenticated %}
+          <li style="width: 80px; margin-left: 10px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/wish">Wishlist</a>
+          </li>
+          <li style="width: 60px; margin-left: 10px; margin-right: 10px;" class="nav-item active mr-3">
+            <a class="nav-link" href="/mycart">Cart</a>
+          </li>
+         <li style="width: 60px; " class="nav-item active mr-3">
+            <a class="nav-link" href="/mysales">MySales</a>
+          </li>
+          {% endif %}
+      </ul>
+                
+      </div>
+    </div>
+  </nav>
+  
+  <h3  style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-top: 20px; text-align: center;">MY SALES</h3>
+  {%for p in Post%}  
+  <div style="background-color: #f8eee1; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: relative; width: 1102px; margin-left: 175px; margin-top: 40px; box-shadow: 0 0 7px 7px rgba(0, 0, 0, 0.2);" class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <a href="/display?post_id={{ p.id_post }}">
+        <img style="width: 400px; height: 250px;" src="{{p.image1.url}}" class="img-fluid rounded-start" alt="...">
+        </a>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{p.title}}</h5>
+          <p style="position: absolute;" class="card-text">{{p.description}}</p>
+          <p style="position: absolute; margin-top: 40px;" class="card-text"><strong>Created at:  </strong>{{p.created_at}}</p>
+          <p style="position: absolute; margin-top: 80px" class="card-text"><strong>Category:  </strong>{{p.category}}</p>
+          <p style="position: absolute; margin-top: 120px" class="card-text"><strong>Price:  </strong>₹{{p.price}}</p>
+          <p style="position: absolute; margin-top: 40px; margin-left: 400px" class="card-text"><strong>Likes:  </strong>{{p.likes}}</p>
+          <p style="position: absolute; margin-top: 80px; margin-left: 400px" class="card-text"><strong>Cart:  </strong>{{p.cart}}</p>
+          <p style="position: absolute; margin-top: 120px; margin-left: 400px" class="card-text"><a href="/remove_post?post_id={{p.id_post}}">Remove my advertisement</a></p>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  {%endfor%}
+  <!-- {%for p in Post%}   
+  <img src="{{p.image1.url}}">
+  <p><strong>Description:  </strong>{{p.description}}</p>
+  <p><strong>Created at:  </strong>{{p.created_at}}</p>
+  <p><strong>Title:  </strong>{{p.title}}</p>
+  <p><strong>Category:  </strong>{{p.category}}</p>
+  <p><strong>Price:  </strong>{{p.price}}</p>
+  <p><strong>Likes:  </strong>{{p.likes}}</p>
+  <p><strong>Cart:  </strong>{{p.cart}}</p>
+{%endfor%} -->
+</body>
+</html>
+
+<!-- {%for p in Post%}   
+  <img src="{{p.image1.url}}">
+  <p><strong>Description:  </strong>{{p.description}}</p>
+  <p><strong>Created at:  </strong>{{p.created_at}}</p>
+  <p><strong>Title:  </strong>{{p.title}}</p>
+  <p><strong>Category:  </strong>{{p.category}}</p>
+  <p><strong>Price:  </strong>{{p.price}}</p>
+  <p><strong>Likes:  </strong>{{p.likes}}</p>
+  <p><strong>Cart:  </strong>{{p.cart}}</p>
+{%endfor%} -->
+  

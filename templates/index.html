@@ -1,0 +1,453 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="all.css">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="bootstrap.css">
+  <!-- Custom -->
+  <link rel="stylesheet" href="{%static 'style.css'%}">
+  <link rel="stylesheet" href="{%static 'lightbox.min.css'%}">
+  <link rel="stylesheet" href="{%static 'bootstrap.css'%}">
+  <link rel="stylesheet" href="{%static 'all.css'%}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <style>
+    .container1:hover {
+      box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
+    }
+    .linky:hover {
+      border: 2px solid #fa7fa1;
+      background-color: #d7f1af ;
+      text-decoration: none;
+    }
+    .container1 {
+      position: relative;
+    }
+
+    .image {
+      opacity: 1;
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: .5s ease;
+      backface-visibility: hidden;
+    }
+
+    .middle {
+      transition: .5s ease;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .container1:hover .image {
+     opacity: 0.3;  
+    }
+
+    .container1:hover .middle {
+      opacity: 1;  
+    }
+
+    .text {
+     background-color: #d5a249;
+     color: white;
+     font-size: 16px;
+     padding: 8px 16px;  
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 130px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      float: none;
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #c1aeae;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+  </style>
+  <title>BT Real Estate</title>
+
+</head>
+
+<body>
+  
+  <!-- Navbar -->
+  <nav style=" height: 91px; font-size: 16px; border-top: 3px solid #2c4152; border-bottom: 1px solid #e0e0e0; font-family: SourceSansPro; box-shadow: 0 3px 6px 0 rgba(0,0,0,.2); width: 100%;" class="navbar navbar-expand-lg navbar-black bg-white sticky-top">
+    <div style="margin-left: 0px; margin-right: 0px;" class="container">
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+        <img style="margin-left: 0px;" height="80px;" width="50px;" src="{% static 'assets\logo.png'%} " alt="logo">
+        <ul class="navbar-nav">
+          <li style="padding-left: 0px; padding-right:0px; margin-left: 20px ; margin-top: 10px; margin-right:1px;" class="nav-item active mr-3">
+            <a style="color: black;" class="nav-link" href="/">Home</a>
+          </li>
+          <li style="padding-right:0px; margin-top: 10px; " class="nav-item active mr-3">
+            <a style="color: black;"  class="nav-link" href="about.html">About</a>
+          </li>
+          <li style="width: 50px; margin-top: 10px;" class="nav-item active mr-3">
+            <a style="color: black;"  class="nav-link" href="/listing">SELL</a>
+          </li>
+          <form style="margin-top: 10px;" action="search">
+          
+            <div class="form-row">
+                <ul style="height: 40px;" class="navbar-nav">
+                    <li style="width: 40px;">
+                        <div style="margin-right: 150px;;" class="col-md-4 mb-3">
+                            <label class="sr-only">Search</label>
+                            <input style="width:626px; height: 44px; border: 1px solid black;" type="text" name="keywords" class="form-control" placeholder="Search ">
+                          </div>
+                    </li>
+                </ul>
+                
+              </div>
+        </form>
+
+        {% if user.is_authenticated %}
+          <li style="width: 60px; margin-left: 635px; margin-top: 10px;" class="nav-item active mr-3">
+            <a style="color: black;"  class="nav-link" href="/logout">Logout</a>
+          </li>
+          {% else %}
+          <li style="width: 60px; margin-top: 10px; margin-left: 700px" class="nav-item active mr-3">
+            <a style="color: black;"  class="nav-link" href="/login">Login</a>
+          </li>
+          <li style="width: 170px; margin-top: 10px;" class="nav-item active mr-3">
+            <a style="color: black;"  class="nav-link" href="/signup">Register</a>
+          </li>
+          {% endif %}
+
+          {% if user.is_authenticated %}
+          <li style="width: 80px; margin-left: 10px; margin-top: 10px;" class="nav-item active mr-3">
+            <a style="color: black;"  class="nav-link" href="/wish">Wishlist</a>
+          </li>
+          <li style="width: 60px; margin-left: 10px; margin-top: 10px; margin-right: 10px;" class="nav-item active mr-3">
+            <a style="color: black;"  class="nav-link" href="/mycart">Cart</a>
+          </li>
+         <!-- <li style="width: 60px; " class="nav-item active mr-3">
+            <a class="nav-link" href="/mysales">MySales</a>
+          </li> -->
+          <li style="width: 60px;">
+            <div class="dropdown">
+              <img style="position: absolute;" src="{% static 'assets\icon.png'%}" alt="">
+              <button style="background: none; margin-left: 55px; margin-top: 15px; border-width: 0px;" class="dropbtn">
+                <i class="fa-regular fa-caret-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a style="color: black;"  href="/mysales">My Sales</a>
+                <a style="color: black;"  href="/report_info">Reports</a>
+                <a style="color: black;"  href="/notifications">Alerts</a>
+              </div>
+            </div> 
+          </li>
+          {% endif %}
+      </ul>
+                
+      </div>
+    </div>
+  </nav>
+
+
+  <div style="text-align: center;" class="username">
+    <p style="margin-top: 20px; font-size: 30px; font-family: cursive;">Hello {{user.username}}! Welcome to our website </p>
+  </div>
+  
+  <div>
+    <img style="width: 100%; height: 175px; object-fit: fill; position: absolute;" src="{% static 'assets\backgroundimage.png'%}" alt="">
+    <div style="position: absolute; margin-left: 150px; margin-top: 75px; height: 24px; font-family: dancing script;">
+      <h3 style="position: absolute; width: 1200px;">"THE ULTIMATE BIDDING EXPERIENCE IS WAITING FOR YOU. JOIN US NOW!"</h3>
+      <a class="linky" style="position: absolute; width: 127px; margin-left: 1035px; margin-top: 0px; 
+                padding-bottom: 5px; padding-top: 5px; padding-left: 10px;  color: #f74678;" href="/bidding">BID NOW &nbsp;&nbsp;<i class="fa-regular fa-arrow-right"></i></a>
+    </div>
+  </div>
+
+    <div class="dropdown show" style="margin-left: 1000px; position: absolute; margin-top: 230px; width: 150px; background : linear-gradient(to right bottom, #373B44, #4286f4 40%);" >
+      
+      <a style="width: 176px; color: black; background : linear-gradient(to right bottom, #2193b0, #6dd5ed);" class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sort by
+      </a>
+      
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="{% url 'feed_sorted_by_price' %}">Price:high to low</a>
+        <a class="dropdown-item" href="{% url 'feed_sorted_by_latest' %}">Latest</a>
+        
+      </div>
+      
+    </div>
+
+  <!-- Listings -->
+  <section id="listings" style="margin-top: 200px;" class="py-5">
+    <div class="container">
+      <h3 style="font-family: Playfair Display; font-weight: bold; margin-bottom: 50px ; " class="text-center mb-3">Latest Listings</h3>
+      <div class="row">
+        {% for feed in feed %}
+        <div style="border: none; margin-right: 0px; " class="col-md-4 mb-4">
+          <a href="/display?post_id={{ feed.id_post }}">
+            <div style="border: none; height: 450px;" class="container1" class="card listing-preview">
+              <img class="image" style="object-fit: cover; height: 250px; " class="card-img-top" src="{{ feed.image1.url }}" alt="">
+              <div class="middle">
+                <div class="text">More Details</div>
+              </div>
+          </a>
+              <div class="card-body">
+                <div class="listing-heading text-center">
+                  <h2 style="font-family: SourceSansPro; color: #b19975;" >{{ feed.title }}</h2>
+                  
+                    <h5 style="font-family: SourceSansPro; color: #333;">
+                      <!-- <i class="fas fa-map-marker text-secondary"></i> -->
+                      {{ feed.category }}</h5>
+                      <h4>
+                    <span>₹{{ feed.price }}</span>
+                  </h4>
+                </div>
+                <!-- <a href="/like1?post_id={{feed.id_post}}" onclick="toggleWishlist(this)">
+                  <div>
+                    <p id="ptag">Add to wishlist</p>
+                  </div>
+                </a>
+                <a href="/carts1?post_id={{feed.id_post}}">
+                  <p>Add to Cart</p>
+                </a> -->
+                <div id="wishlist" style="position: absolute; margin-right: 30px; border-color: rgb(213, 162, 73); border-style: solid; border-width: 1px; padding-left: 0px; padding-right: 5px; padding-top: 6px; padding-bottom: 6px;" class="add-to-wishlist">
+                  <a id="wishlist-link" style=" display: inline; padding-right: 5px; " class="btn btn-pink btn-block" href="/like1?post_id={{feed.id_post}}">Add to Wishlist &nbsp; <i style="color: #d5a249;" class="fa-regular fa-heart"></i></i></a>
+                  <!-- <span><i class="fa-thin fa-heart" style="color: #d5a249;"></i></span> -->
+                </div>
+                  
+                <div style="position: absolute; margin-left: 180px; background-color: #d5a249; width: 140px ; height: 40px; padding-top: 7px; padding-right: 10px; padding-bottom: 0px; padding-left: 10px;">
+                  <a style="display: inline; color: white; font-size: 16px;"  href="/carts1?post_id={{feed.id_post}}">Add to Cart &nbsp; <i class="fa-regular fa-cart-shopping"></i></a>
+                </div>
+                  
+                <!-- <a href="listing.html" class="btn btn-primary btn-block">More Info</a> -->
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for m in latest %}
+        <div style="border: none; margin-right: 0px; " class="col-md-4 mb-4">
+          <a href="/display?post_id={{ m.id_post }}">
+            <div style="border: none; height: 450px;" class="card listing-preview">
+              <img style="object-fit: cover; height: 250px; " class="card-img-top" src="{{ m.image1.url }}" alt="">
+              <div class="card-img-overlay">
+                <!-- <h2>
+                  <span class="badge badge-secondary text-white">{{ feed.price }}</span>
+                </h2> -->
+              </div>
+          </a>
+              <div class="card-body">
+                <div class="listing-heading text-center">
+                  <h2 style="font-family: SourceSansPro; color: #b19975;" >{{ m.title }}</h2>
+                  
+                    <h5 style="font-family: SourceSansPro; color: #333;">
+                      <!-- <i class="fas fa-map-marker text-secondary"></i> -->
+                      {{ m.category }}</h5>
+                      <h4>
+                    <span>₹{{ m.price }}</span>
+                  </h4>
+                </div>
+                <!-- <a href="/like1?post_id={{feed.id_post}}" onclick="toggleWishlist(this)">
+                  <div>
+                    <p id="ptag">Add to wishlist</p>
+                  </div>
+                </a>
+                <a href="/carts1?post_id={{feed.id_post}}">
+                  <p>Add to Cart</p>
+                </a> -->
+                <div id="wishlist" style="position: absolute; margin-right: 30px; border-color: rgb(213, 162, 73); border-style: solid; border-width: 1px; padding-left: 0px; padding-right: 5px; padding-top: 6px; padding-bottom: 6px;" class="add-to-wishlist">
+                  <a id="wishlist-link" style=" display: inline; padding-right: 5px; " class="btn btn-pink btn-block" href="/like1?post_id={{m.id_post}}">Add to Wishlist &nbsp; <i style="color: #d5a249;" class="fa-regular fa-heart"></i></i></a>
+                  <!-- <span><i class="fa-thin fa-heart" style="color: #d5a249;"></i></span> -->
+                </div>
+                  
+                <div style="position: absolute; margin-left: 180px; background-color: #d5a249; width: 140px ; height: 40px; padding-top: 7px; padding-right: 10px; padding-bottom: 0px; padding-left: 10px;">
+                  <a style="display: inline; color: white; font-size: 16px;"  href="/carts1?post_id={{m.id_post}}">Add to Cart &nbsp; <i class="fa-regular fa-cart-shopping"></i></a>
+                </div>
+                  
+                <!-- <a href="listing.html" class="btn btn-primary btn-block">More Info</a> -->
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for item in items %}
+        <div style="border: none; margin-right: 0px; " class="col-md-4 mb-4">
+          <a href="/display?post_id={{ item.id_post }}">
+            <div style="border: none; height: 450px;" class="card listing-preview">
+              <img style="object-fit: cover; height: 250px; " class="card-img-top" src="{{ item.image1.url }}" alt="">
+              <div class="card-img-overlay">
+                <!-- <h2>
+                  <span class="badge badge-secondary text-white">{{ feed.price }}</span>
+                </h2> -->
+              </div>
+          </a>
+              <div class="card-body">
+                <div class="listing-heading text-center">
+                  <h2 style="font-family: SourceSansPro; color: #b19975;" >{{ item.title }}</h2>
+                  
+                    <h5 style="font-family: SourceSansPro; color: #333;">
+                      <!-- <i class="fas fa-map-marker text-secondary"></i> -->
+                      {{ item.category }}</h5>
+                      <h4>
+                    <span>₹{{ item.price }}</span>
+                  </h4>
+                </div>
+                <!-- <a href="/like1?post_id={{feed.id_post}}" onclick="toggleWishlist(this)">
+                  <div>
+                    <p id="ptag">Add to wishlist</p>
+                  </div>
+                </a>
+                <a href="/carts1?post_id={{feed.id_post}}">
+                  <p>Add to Cart</p>
+                </a> -->
+                <div id="wishlist" style="position: absolute; margin-right: 30px; border-color: rgb(213, 162, 73); border-style: solid; border-width: 1px; padding-left: 0px; padding-right: 5px; padding-top: 6px; padding-bottom: 6px;" class="add-to-wishlist">
+                  <a id="wishlist-link" style=" display: inline; padding-right: 5px; " class="btn btn-pink btn-block" href="/like1?post_id={{item.id_post}}">Add to Wishlist &nbsp; <i style="color: #d5a249;" class="fa-regular fa-heart"></i></i></a>
+                  <!-- <span><i class="fa-thin fa-heart" style="color: #d5a249;"></i></span> -->
+                </div>
+                  
+                <div style="position: absolute; margin-left: 180px; background-color: #d5a249; width: 140px ; height: 40px; padding-top: 7px; padding-right: 10px; padding-bottom: 0px; padding-left: 10px;">
+                  <a style="display: inline; color: white; font-size: 16px;"  href="/carts1?post_id={{item.id_post}}">Add to Cart &nbsp; <i class="fa-regular fa-cart-shopping"></i></a>
+                </div>
+                  
+                <!-- <a href="listing.html" class="btn btn-primary btn-block">More Info</a> -->
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>  
+    
+  </section>
+  
+
+ 
+
+  <footer>
+    <div style="background-color: #86A3B8; margin-bottom: 0px;">
+      <br>
+      <p style="text-align: center; font-family: Nowlight;">
+        '© Copyright 2023, All rights reserved. | '
+        <strong><a href="/loginpage">Admin Login</a></strong>
+      </p>
+      <p style="text-align: center; font-family: Nowlight;">
+        Indian Institue of Technology, Indore
+      </p>
+      <br>
+    </div>
+  </footer>
+  
+  <!-- <script>
+    var wishlistLinks = document.querySelectorAll("#wishlist-link");
+  
+    wishlistLinks.forEach(function(wishlistLink) {
+      wishlistLink.addEventListener("click", function(event) {
+        event.preventDefault();
+  
+        // Change text
+        wishlistLink.textContent = "Added to Wishlist";
+  
+        // Change icon
+        var heartIcon = wishlistLink.querySelector(".fa-heart");
+        heartIcon.classList.remove("fa-regular");
+        heartIcon.classList.add("fa-solid");
+      });
+    });
+  </script> -->
+  <!-- <script>
+    var wishlistLinks = document.querySelectorAll("#wishlist-link");
+  
+    wishlistLinks.forEach(function(wishlistLink) {
+      // Check localStorage for saved state
+      var savedState = localStorage.getItem(wishlistLink.getAttribute("href"));
+      if (savedState === "added") {
+        wishlistLink.textContent = "Added to Wishlist";
+        wishlistLink.querySelector(".fa-heart").classList.add("fa-solid");
+      } else if (savedState === "cart") {
+        wishlistLink.textContent = "Add to Cart";
+        wishlistLink.querySelector(".fa-heart").classList.add("fa-shopping-cart");
+      }
+  
+      wishlistLink.addEventListener("click", function(event) {
+        event.preventDefault();
+  
+        if (wishlistLink.textContent === "Add to Wishlist") {
+          // Change text to "Added to Wishlist"
+          wishlistLink.textContent = "Added to Wishlist";
+  
+          // Save state to localStorage
+          localStorage.setItem(wishlistLink.getAttribute("href"), "added");
+        } else {
+          // Change text to "Add to Cart"
+          wishlistLink.textContent = "Add to Cart";
+  
+          // Save state to localStorage
+          localStorage.setItem(wishlistLink.getAttribute("href"), "cart");
+        }
+  
+        // Toggle icon
+        var heartIcon = wishlistLink.querySelector(".fa-heart");
+        heartIcon.classList.toggle("fa-regular");
+        heartIcon.classList.toggle("fa-solid");
+        heartIcon.classList.toggle("fa-shopping-cart");
+      });
+    });
+  </script> -->
+  
+  <!-- <script>
+    var wishlistLinks = document.querySelectorAll("#wishlist-link");
+  
+    wishlistLinks.forEach(function(wishlistLink) {
+      wishlistLink.addEventListener("click", function(event) {
+        event.preventDefault();
+  
+        if (wishlistLink.textContent === "Add to Wishlist") {
+          // Change text to "Added to Wishlist"
+          wishlistLink.textContent = "Added to Wishlist";
+        } else {
+          // Change text to "Add to Cart"
+          wishlistLink.textContent = "Add to Wishlist";
+        }
+  
+        // Toggle icon
+        var heartIcon = wishlistLink.querySelector(".fa-heart");
+        heartIcon.classList.toggle("fa-regular");
+        heartIcon.classList.toggle("fa-solid");
+      });
+    });
+  </script> -->
+  
+  
+  <script src="assets/js/jquery-3.3.1.min.js "></script>
+  <script src="assets/js/bootstrap.bundle.min.js "></script>
+  <script src="assets/js/main.js "></script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome -->
+  <link rel="stylesheet" href="{%static 'all.css'%}">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="{%static 'bootstrap.css'%}">
+  <!-- Custom -->
+  <link rel="stylesheet" href="{%static 'style.css'%}">
+  <!--login-->
+  <link rel="stylesheet" href="{%static 'listing.css'%}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <!-- <style>
+        .listing-page{
+        /* margin:0; */
+        /* height: 100vh; */
+        /* width: 100vw; */
+        /* overflow: auto; */
+        display: flex;
+        align-items: center;
+        color: #485563;
+        background-color: #fff;
+        justify-content: center;
+        background-size: cover;
+        }
+    </style> -->
+    <title>Document</title>
+</head>
+<body>
+    <nav style="width: 100%;  position: fixed; height: 91px; font-size: 16px; border-top: 3px solid #2c4152; border-bottom: 1px solid #e0e0e0; font-family: SourceSansPro; box-shadow: 0 3px 6px 0 rgba(0,0,0,.2);" class="navbar navbar-expand-lg navbar-black bg-white sticky-top">
+        <div style="margin-left: 0px; margin-right: 0px;" class="container">
+                 
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    
+            <img style="margin-left: 0px;" height="80px;" width="50px;" src="{% static 'assets\logo.png'%} " alt="logo">
+            <ul class="navbar-nav">
+              <li style="padding-left: 0px; padding-right:0px; margin-left: 20px ; margin-right:1px;" class="nav-item active mr-3">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <li style="padding-right:0px; " class="nav-item active mr-3">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li style="width: 50px ;" class="nav-item active mr-3">
+                <a class="nav-link" href="/listing">SELL</a>
+              </li>
+              <form action="search">
+              
+                <div class="form-row">
+                    <ul style="height: 40px;" class="navbar-nav">
+                        <li style="width: 40px;">
+                            <div style="margin-right: 150px;;" class="col-md-4 mb-3">
+                                <label class="sr-only">Search</label>
+                                <input style="width:626px; height: 44px; border: 1px solid black;" type="text" name="keywords" class="form-control" placeholder="Search ">
+                              </div>
+                        </li>
+                    </ul>
+                    
+                  </div>
+            </form>
+    
+            {% if user.is_authenticated %}
+              <li style="width: 60px; margin-left: 635px" class="nav-item active mr-3">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+              {% else %}
+              <li style="width: 60px; margin-left: 700px" class="nav-item active mr-3">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+              <li style="width: 170px; " class="nav-item active mr-3">
+                <a class="nav-link" href="/signup">Register</a>
+              </li>
+              {% endif %}
+    
+              {% if user.is_authenticated %}
+              <li style="width: 80px; margin-left: 10px;" class="nav-item active mr-3">
+                <a class="nav-link" href="/wish">Wishlist</a>
+              </li>
+              <li style="width: 60px; margin-left: 10px; margin-right: 10px;" class="nav-item active mr-3">
+                <a class="nav-link" href="/mycart">Cart</a>
+              </li>
+             <li style="width: 60px; " class="nav-item active mr-3">
+                <a class="nav-link" href="/mysales">MySales</a>
+              </li>
+              {% endif %}
+          </ul>
+                    
+          </div>
+        </div>
+    </nav>
+
+   
+    <div style="box-shadow: 0 3px 6px 0 rgba(0,0,0,.2); position: absolute; border: 1px solid black; margin-top: 200px; margin-left: 260px; width: 902px; height: 1200px;" class="listing-page">
+        <div class="main" style="padding-right: 0px ; margin-left: 0px; width: 800px; margin-top: 0px; padding-left: 80px;">
+            <div class="heading">CREATE</div>
+            <form action="listing" method="POST" enctype="multipart/form-data">
+                {%csrf_token%}
+                <fieldset>
+                    <!-- <legend>CREATE</legend> -->
+                <div class="credentials">
+                    <div class="title">
+                        <input type="text" name="title" placeholder="Title" required="">
+                    </div>
+                    <div class="category">
+                        <label for="category"> Category </label>
+                        <select name="category" id="category">
+                            <option value="books">Books</option>
+                            <option value="bicycles">Bicycles</option>
+                            <option value="Laptops">Laptop</option>
+                        </select>
+                    </div>
+                    <div class="address">
+                        <input style="width: 665px;" type="text" name="location" placeholder="Location" required="">
+                    </div>
+                    <div class="description">
+                        <input style="width: 665px;" type="text" name="description" placeholder="Description" required="">
+                    </div>
+                    <div class="price">
+                        <input style="width: 665px;" type="text" name="price" placeholder="Price" required="">
+                    </div>
+                    <div class="image1">
+                        <input style="width: 665px;" type="file" id="img1" name="img1" accept="image/*" required="">
+                    </div>
+                    <div class="image2">
+                        <input style="width: 665px;" type="file" id="img2" name="img2" accept="image/*" >
+                    </div>
+                    <div class="image3">
+                        <input style="width: 665px;" type="file" id="img3" name="img3" accept="image/*" >
+                    </div>
+                    <div class="image4">
+                        <input style="width: 665px;" type="file" id="img4" name="img4" accept="image/*" >
+                    </div>
+                    <div class="image5">
+                        <input style="width: 665px;" type="file" id="img5" name="img5" accept="image/*" >
+                    </div>
+                    <div class="price">
+                      <input style="width: 665px;" type="text" name="bidprice" placeholder="Bid Price" required="">
+                  </div>
+                    <div style="border: 1px solid rgb(17, 18, 16); padding-left: 80px; width: 252px; margin-left: 200px; background-color: rgba(128, 128, 128, 0.23);" class="button">
+                        <input  type="submit" value="Upload">
+                    </div>
+                </div>
+            </fieldset>
+            </form>
+        </div>
+    </div>
+    {%for message in messages %} 
+    <div style="font-family: serif; width: 537px; color: #4959bd; position: absolute;
+    border-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; 
+    border-color: rgba(14, 7, 7, 0.27); border-image: none; margin-left: 450px; margin-top: 130px; 
+    border-left-style: solid; padding-left: 70px; padding-top: 10px; padding-bottom: 10px;">   
+     <h4>{{message}}</h4>
+    </div>
+    {% endfor %}
+    
+    <script src="assets/js/jquery-3.3.1.min.js "></script>
+    <script src="assets/js/bootstrap.bundle.min.js "></script>
+    <script src="assets/js/main.js "></script>
+    
+</body>
+</html>
