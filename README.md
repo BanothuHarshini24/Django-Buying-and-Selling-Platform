@@ -28,7 +28,7 @@ This is a selling and buying platform developed using the Django web framework.
 
 $ git clone https://github.com/BanothuHarshini24/Django-Buying-and-Selling-Platform
 $ cd Django-Buying-and-Selling-Platform
-
+ 
 *Create a virtual environment
 
 $ pip install virtualenv
